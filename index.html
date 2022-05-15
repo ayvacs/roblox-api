@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Roblox API Reference</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        :root {
+            --bckgd: rgb(30, 30, 30);
+            --decorate: orange;
+            --Property: #00FFFF;
+            --Function: #00FF00;
+            --Event: #F5CD30;
+        }
+
+        body, html {
+            font-family: monospace;
+            color: white;
+            background-color: var(--bckgd);
+        }
+
+
+        .Tag::before { content: "["; }
+        .Tag::after { content: "]"; }
+        .Class::before { content: "Class "; color: var(--decorate); }
+        .Class::after { content: "\a"; white-space: pre; }
+
+        .Property::before { content: "Property "; color: var(--Property) }
+        .Function::before { content: "Function "; color: var(--Function) }
+        .Event::before { content: "Event "; color: var(--Event) }
+
+        .Tag { color: #feffbe; background-color: #7e7f50; }
+        .Type { color: var(--decorate); }
+
+        .decorative { color: var(--decorate); }
+        .indent { margin-left: 20px; }
+        .indent::after { content: "\a"; white-space: pre; }
+    </style>
+</head>
+
+<body>
+    <h1>Roblox API Reference</h1>
+    <script src="main.js"></script>
+</body>
+
+</html>
