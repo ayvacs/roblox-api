@@ -5,6 +5,8 @@ function get(url){
     }).responseText);
 };
 
+document.getElementById("v").innerHTML = `${ get("https://api.github.com/repos/MaximumADHD/Roblox-Client-Tracker/commits")[0].commit.message }`;
+
 var elem = document.body;
 var data = get("https://raw.githubusercontent.com/MaximumADHD/Roblox-Client-Tracker/roblox/API-Dump.json");
 
