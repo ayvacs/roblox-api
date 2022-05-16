@@ -43,25 +43,46 @@ for (let i in Classes) {
             var Member = v.Members[_];
 
             // get type name, this is rlly messy but oh well
+
+            // d1 is the colon or period before the name and d2 is the parameters after it
             var mt = Member.MemberType;
             if (mt == "Function") {
                 type = Member.ReturnType.Name;
-                d = ":";
+                d1 = ":";
             } else if (mt == "Event") {
                 type = "-donotshow";
-                d = ".";
+                d1 = ".";
             } else if (mt == "Callback") {
                 type = "Callback";
-                d = ".";
+                d1 = ".";
             } else {
                 type = Member.ValueType.Name;
-                d = ".";
+                d1 = ".";
             };
+            d2 = "";
+
+            // add parameters of functions and events
+            if (mt == "Function" || mt == "Event") {
+                if (Member.Parameters) {
+                    for (let i in Member.Parameters) {
+                        if (i+1 < Member.Parameters.length) {
+                            comma = ",";
+                        } else {
+                            comma = "";
+                        };
+
+                        var param = Member.Parameters[i];
+                        d2 += ` <span class="decorative typeName">${param.Type.Name}</span> ${param.Name}${comma}`;
+                    };
+
+                    d2 = `(${d2} )`;
+                };
+            }
 
             if (type != "-donotshow") {
                 type = `<span class="Type">${type}&nbsp;</span>`;
             } else {
-                type = ``;
+                type = "";
             };
 
 
@@ -75,7 +96,7 @@ for (let i in Classes) {
                 };
             };
 
-            strTS += `<span class="${Member.MemberType} indent">${type}<span class="Name">${v.Name}<span class="decorative">${d}</span>${Member.Name} ${tags}</span></span>`;
+            strTS += `<span class="${Member.MemberType} indent">${type}<span class="Name">${v.Name}<span class="decorative">${d1}</span>${Member.Name}${d2} ${tags}</span></span>`;
         };
     };
 
