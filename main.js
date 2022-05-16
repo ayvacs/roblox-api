@@ -14,6 +14,11 @@ var Classes = data.Classes;
 var Enums = data.Enums;
 var Version = data.Version;
 
+// for testing
+var doClasses = true
+var doEnums = false
+
+if (doClasses) {
 for (let i in Classes) {
     var v = Classes[i];
     console.log(v);
@@ -72,7 +77,14 @@ for (let i in Classes) {
                         };
 
                         var param = Member.Parameters[i];
-                        d2 += ` <span class="decorative typeName">${param.Type.Name}</span> ${param.Name}${comma}`;
+
+                        var d = "decorative typeName";
+                        if (Member.Tags) {
+                            if (Object.values(Member.Tags).includes("Deprecated") || Object.values(Member.Tags).includes("Hidden")) {
+                                d = "typeName";
+                            };
+                        };
+                        d2 += ` <span class="${d}">${param.Type.Name}</span> ${param.Name}${comma}`;
                     };
 
                     d2 = `(${d2} )`;
@@ -88,18 +100,41 @@ for (let i in Classes) {
 
             // add tags
             tags = ""
+            specialClass = ""
+            dClass = "decorative";
             if (Member.Tags) {
                 for (let _ in Member.Tags) {
+                    var tag = Member.Tags[_];
                     // double-space the first tag
                     if (_ == 0) { pre = "&nbsp;" } else { pre = "" };
-                    tags += `${pre}&nbsp;<span class="Tag">${Member.Tags[_]}</span>&nbsp;`;
+                    tags += `${pre}&nbsp;<span class="Tag">${tag}</span>&nbsp;`;
+
+                    if (tag == "Deprecated" || tag == "Hidden") {
+                        specialClass = "hidden";
+                        dClass = "bold";
+                        d2 = d2.replace("decorative", "");
+                    };
                 };
             };
 
-            strTS += `<span class="${Member.MemberType} indent">${type}<span class="Name">${v.Name}<span class="decorative">${d1}</span>${Member.Name}${d2} ${tags}</span></span>`;
+            strTS += `<span class="${Member.MemberType} indent ${specialClass}">${type}<span class="Name">${v.Name}<span class="${dClass}">${d1}</span>${Member.Name}${d2} ${tags}</span></span>`;
         };
     };
 
     // add to document
-    document.body.innerHTML += `<div class="Class">` + strTS + `</div>`;
-}
+    document.body.innerHTML += `<div class="Class">${strTS}</div>`;
+};
+};
+
+if (doEnums) {
+for (let i in Enums) {
+    v = Enums[i];
+    console.log(v)
+
+    // init
+    var strTS = `<span class="name">${v.Name}</span>`;
+
+    // add to document
+    document.body.innerHTML += `<div class="Enum">${strTS}</div>`;
+};
+};

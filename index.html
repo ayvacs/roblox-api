@@ -22,20 +22,26 @@
 
         .Tag::before { content: "["; }
         .Tag::after { content: "]"; }
+
         .Class::before { content: "Class "; color: var(--decorate); }
         .Class::after { content: "\a"; white-space: pre; }
+
+        .Enum::before { content: "Enum "; color: var(--decorate); }
+        .Enum::after { content: "\a"; white-space: pre; }
 
         .Property::before { content: "Property "; color: var(--Property) }
         .Function::before { content: "Function "; color: var(--Function) }
         .Event::before { content: "Event "; color: var(--Event) }
 
-        .Tag { color: #feffbe; background-color: #7e7f50; }
+        .Tag { color: #feffbe; background-color: #7e7f50;}
         .Type { color: var(--decorate); }
 
         .decorative { color: var(--decorate); }
-        .Type, .typeName { font-weight: bold; }
+        .Type, .typeName, .bold { font-weight: bold; }
         .indent { margin-left: 20px; }
         .indent::after { content: "\a"; white-space: pre; }
+
+        .hidden { color: rgb(98, 98, 98); text-decoration: line-through rgb(98, 98, 98) 3px; }
     </style>
 </head>
 
